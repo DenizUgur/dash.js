@@ -107,6 +107,16 @@ function FragmentLoader(config) {
                         streamId
                     });
                     if (event.data) {
+                        const isoFile = config.boxParser.parse(event.data);
+                        const freeBoxes = isoFile.getBoxes("free");
+
+                        if (freeBoxes) {
+                            if (window._globalEventBuffer) // FIXME: This could have been better
+                                window._globalEventBuffer.push(...isoFile.getBoxes("free").map(e => e.sa));
+                            else
+                                window._globalEventBuffer = [...isoFile.getBoxes("free").map(e => e.sa)];
+                        }
+
                         eventBus.trigger(events.LOADING_DATA_PROGRESS, {
                             request: request,
                             response: event.data || null,

@@ -66,6 +66,20 @@ function IsoFile() {
         for (let i = 0, ln = boxData.length; i < ln; i++) {
             box = convertToDashIsoBox(boxData[i]);
 
+            if (box.type == "free") {
+                var buf = new ArrayBuffer(4);
+                var view = new DataView(buf);
+
+                boxData[i].data.slice(0, 4).forEach(function (b, i) {
+                    view.setUint8(i, b);
+                });
+
+                box.sa = {
+                    pts: view.getFloat32(0),
+                    density: boxData[i].data[7] 
+                };
+            }
+
             if (box) {
                 boxes.push(box);
             }

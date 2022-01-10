@@ -137,6 +137,7 @@ import {HTTPRequest} from '../streaming/vo/metrics/HTTPRequest';
  *                latencyThreshold: 60,
  *                playbackBufferMin: 0.5,
  *                enabled: false,
+ *                respectVideoEvents: false,
  *                mode: Constants.LIVE_CATCHUP_MODE_DEFAULT
  *            },
  *            lastBitrateCachingInfo: { enabled: true, ttl: 360000 },
@@ -480,6 +481,9 @@ import {HTTPRequest} from '../streaming/vo/metrics/HTTPRequest';
  *
  * @property {boolean} [enabled=false]
  * Use this parameter to enable the catchup mode for non low-latency streams.
+ * 
+ * @property {boolean} [respectVideoEvents=false]
+ * Use this parameter to enable the video event adaptation for compatible streams
  *
  * @property {string} [mode="liveCatchupModeDefault"]
  * Use this parameter to switch between different catchup modes.
@@ -833,6 +837,7 @@ function Settings() {
                 latencyThreshold: 60,
                 playbackBufferMin: 0.5,
                 enabled: false,
+                respectVideoEvents: false,
                 mode: Constants.LIVE_CATCHUP_MODE_DEFAULT
             },
             lastBitrateCachingInfo: {
